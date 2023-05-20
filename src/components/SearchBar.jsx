@@ -1,21 +1,14 @@
-import "./App.css";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
-import RecipeList from "./components/RecipeList";
+import Button from "react-bootstrap/Button"
 
-function App() {
-  const [recipeName, setRecipeName] = useState();
-
-  return (
-    <>
-      <RecipeList />
-
-      <Container className="pd-2">
+function SearchBar(){
+    return (
+        <Container className="pd-2">
         <Row className="justify-content-center">
           <Card style={{ width: "18rem" }}>
             <Card.Img
@@ -34,8 +27,7 @@ function App() {
           </Card>
         </Row>
       </Container>
-    </>
-  );
+    )
 }
 
-export default App;
+export default SearchBar;
