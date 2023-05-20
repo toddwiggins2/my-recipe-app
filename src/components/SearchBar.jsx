@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 
 function SearchBar() {
   return (
-    <Container className="rounded-bottom">
+    <Container className="rounded-bottom col-sm-6">
       <Form className="py-1">
         <Form.Group className="mb-3" controlId="formBasicInput">
           <Form.Label>Recipe Name</Form.Label>
