@@ -8,7 +8,9 @@ import RecipeList from "./components/RecipeList";
 import SearchBar from "./components/SearchBar";
 
 function App() {
-  const [data, setData] = useState([{ id: "2" }]);
+  const [data, setData] = useState({id: '1'});
+  // const [data, setData] = useState({meals: [{idMeal: 2}] });
+
 
   return (
     <>

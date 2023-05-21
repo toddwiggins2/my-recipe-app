@@ -5,47 +5,41 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 
 function RecipeList(props) {
-  // console.log(listData);
-  // console.log(`templist` + templist);
+  const listMeal =
+    props.data.meals && props.data.meals.length > 0 ? (
+      <span key={props.data.meals[0].idMeal}>
+        Name: {props.data.meals[0].strMeal}
+      </span>
+    ) : null;
 
-  // if (!Array.isArray(props.data.meal)) {
-  //   // Handle the case when listData is not an array, such as setting a default value or showing an error message.
-  //   console.log("not an array");
-  // }
+  const imageUrl =
+    props.data.meals && props.data.meals.length > 0
+      ? props.data.meals[0].strMealThumb !== ""
+        ? props.data.meals[0].strMealThumb
+        : null
+      : null;
 
-  const listMeal = props.data.meals
-    ? props.data.meals.map((item) =>
-        item.strMeal !== "" ? (
-          <span key={item.idMeal}>{item.strMeal}</span>
-        ) : null
-      )
-    : null;
-
-  const imageUrl = props.data.meals
-    ? props.data.meals.map((item) =>
-        item.strMealThumb !== "" ? item.strMealThumb : null
-      )
-    : null;
-
-  const mealItem = (apiItem) =>
+  const mealItem = (apiItem, passedName) =>
     props.data.meals
       ? props.data.meals.map((item) =>
           item[apiItem] !== "" ? (
-            <span key={item.idMeal}>{item[apiItem]}</span>
+            <span key={item.idMeal}>
+              {passedName} {item[apiItem]}
+            </span>
           ) : null
         )
       : null;
 
   const ingredientItems = () => {
     if (props.data.meals) {
-      const ingredients = [];
+      const ingredients = [`Ingredient:`];
       for (let i = 1; i <= 20; i++) {
         const ingredient = props.data.meals[0]["strIngredient" + i];
         if (ingredient) {
           ingredients.push(
             // <div key={i}>
-              <span key={i}>{ingredient}</span>
-           // </div>
+            <span key={i}>{ingredient}</span>
+            // </div>
           );
         } else {
           break;
@@ -58,15 +52,11 @@ function RecipeList(props) {
 
   const ingredientItemsMeasure = () => {
     if (props.data.meals) {
-      const ingredients = [];
+      const ingredients = [`Measurement:`];
       for (let i = 1; i <= 20; i++) {
         const ingredient = props.data.meals[0]["strMeasure" + i];
         if (ingredient) {
-          ingredients.push(
-            // <div key={i}>
-              <span key={i}>{ingredient}</span>
-            // </div>
-          );
+          ingredients.push(<span key={i}>{ingredient}</span>);
         } else {
           break;
         }
@@ -76,7 +66,12 @@ function RecipeList(props) {
     return null;
   };
 
-  // : null;}
+  const noItem = () =>
+    props.data.meals || props.data.id ? null : (
+      <>
+        <span>API did not return a recipe, please try a different name.</span>
+      </>
+    );
 
   return (
     <>
@@ -90,19 +85,20 @@ function RecipeList(props) {
             />
 
             <Card.Body>
-              {/* <Card.Title className="text-black">Card Title</Card.Title> */}
-              <Card.Title className="text-black">Name: {listMeal}</Card.Title>
+              <Card.Title className="text-black">{listMeal}</Card.Title>
+              <Card.Title className="text-black text-center">
+                {noItem()}
+              </Card.Title>
               <div className="d-flex justify-content-between align-items-baseline">
                 <Card.Text className="d-grid text-black">
-                  Ingredient: 
                   {ingredientItems()}
                 </Card.Text>
                 <Card.Text className="d-grid text-black">
-                  Measurement: {ingredientItemsMeasure()}
+                  {ingredientItemsMeasure()}
                 </Card.Text>
               </div>
               <Card.Text className="text-black">
-                Instructions: {mealItem("strInstructions")}
+                {mealItem("strInstructions", "Instructions:")}
               </Card.Text>
             </Card.Body>
           </Card>
