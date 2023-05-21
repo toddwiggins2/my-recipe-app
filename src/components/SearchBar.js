@@ -5,9 +5,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 function SearchBar(props) {
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   const [input, setInput] = useState();
   const [url, setUrl] = useState();
