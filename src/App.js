@@ -8,15 +8,15 @@ import RecipeList from "./components/RecipeList";
 import SearchBar from "./components/SearchBar";
 
 function App() {
-  const [recipeName, setRecipeName] = useState();
+  const [data, setData] = useState([{ id: "2" }]);
 
   return (
     <>
-      <Container>
+      <Container >
         <Row>
           <Col>
-            <SearchBar />
-            <RecipeList />
+            <SearchBar data={data} setData={setData} onDataUpdate={setData} />
+            <RecipeList data={data} setData={setData} onDataUpdate={setData} />
           </Col>
         </Row>
       </Container>
