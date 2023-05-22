@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 function SearchBar(props) {
 
   const [input, setInput] = useState();
-  const [url, setUrl] = useState();
+  // const [url, setUrl] = useState();
   // `https://www.themealdb.com/api/json/v1/1/random.php`
 
   const fetchData = async (buttonPref) => {
@@ -39,12 +39,12 @@ function SearchBar(props) {
   const handleChange = (event) => {
     event.preventDefault();
     setInput(event.target.value);
-    setUrl(
-      `https://www.themealdb.com/api/json/v1/1/search.php?s=${event.target.value.replace(
-        /\s/g,
-        ""
-      )}`
-    );
+    // setUrl(
+    //   `https://www.themealdb.com/api/json/v1/1/search.php?s=${event.target.value.replace(
+    //     /\s/g,
+    //     ""
+    //   )}`
+    // );
   };
 
   return (
