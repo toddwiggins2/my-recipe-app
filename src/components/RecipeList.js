@@ -4,8 +4,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 
-
-
 function RecipeList(props) {
   const listMeal =
     props.data.meals && props.data.meals.length > 0 ? (
@@ -87,7 +85,8 @@ function RecipeList(props) {
         <Row className="justify-content-center">
           <Card className="align-items-center ">
             <Card.Img
-              className="rounded w-75 my-2"
+              style={{ width: "50%", height: "100%" }}
+              className="rounded my-2"
               variant="top"
               src={imageUrl}
             />
@@ -105,7 +104,7 @@ function RecipeList(props) {
                   {ingredientItemsMeasure()}
                 </Card.Text>
               </div>
-              <Card.Text>
+              <Card.Text className="mt-4">
                 {mealItem("strInstructions", "Instructions:")}
               </Card.Text>
             </Card.Body>
