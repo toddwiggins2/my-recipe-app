@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 function SearchBar(props) {
-
   const [input, setInput] = useState();
   // const [url, setUrl] = useState();
   // `https://www.themealdb.com/api/json/v1/1/random.php`
@@ -23,9 +22,10 @@ function SearchBar(props) {
       const response = await fetch(apiUrl);
       const jsonData = await response.json();
       jsonData.meals === null
-       ? props.onDataUpdate([{id:`bad`}])
-          // props.onDataUpdate([{id:`bad`}])
-        : props.onDataUpdate(jsonData);
+        ? props.onDataUpdate([{ id: `bad` }])
+        : // props.onDataUpdate([{id:`bad`}])
+          props.onDataUpdate(jsonData);
+      props.hideRecipe(false);
     } catch (error) {
       console.log("Error:", error);
     }
@@ -48,10 +48,10 @@ function SearchBar(props) {
   };
 
   return (
-    <Container className="rounded-bottom col-sm-6">
+    <Container className="rounded-bottom px-0">
       <Form className="py-1" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicInput">
-          <Form.Label>Recipe Name</Form.Label>
+          {/* <Form.Label>Recipe Name</Form.Label> */}
           <Form.Control
             type="input"
             placeholder="Recipe Name"
