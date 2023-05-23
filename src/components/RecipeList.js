@@ -79,14 +79,14 @@ function RecipeList(props) {
   return (
     <>
       <Container
-        className="pd-2 "
+        className="pd-2 shadow-lg"
         style={{ display: props.shouldHide ? "none" : "block" }}
       >
         <Row className="justify-content-center ">
           <Card className="align-items-center bg-transparent border-white">
             <Card.Img
               style={{ width: "50%", height: "100%" }}
-              className="rounded my-2"
+              className="rounded my-2 shadow-lg"
               variant="top"
               src={imageUrl}
             />

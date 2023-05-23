@@ -53,7 +53,7 @@ function SearchBar(props) {
         <Form.Group className="mb-3" controlId="formBasicInput">
           {/* <Form.Label>Recipe Name</Form.Label> */}
           <Form.Control
-          className="bg-transparent border-white"
+          className="bg-transparent border-white shadow-lg"
             type="input"
             placeholder="Recipe Name"
             onChange={handleChange}
@@ -66,7 +66,8 @@ function SearchBar(props) {
         </Form.Group>
         <div className="d-flex justify-content-evenly">
           <Button
-            className="my-2 px-4"
+          type='button'
+            className="my-2 px-4 shadow"
             variant="primary"
             // type="submit"
             onClick={() => fetchData()}
@@ -74,7 +75,7 @@ function SearchBar(props) {
             Search
           </Button>
           <Button
-            className="my-2 px-4"
+            className="my-2 px-4 shadow"
             variant="primary"
             // type="submit"
             onClick={() => fetchData("random")}

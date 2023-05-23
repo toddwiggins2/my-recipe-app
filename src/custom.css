@@ -1,11 +1,19 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 html,
 body {
-  background: linear-gradient(to bottom right, #D4E4BC, #96ACB7, #40376E) !important;
-
+  background: linear-gradient(
+    to bottom right,
+    #d4e4bc,
+    #96acb7,
+    #40376e
+  ) !important;
 }
 
-button{
-    background-color: #36558F !important;
+button {
+  background-color: #36558f !important;
+}
+
+button:active {
+  transform: translate(0em, 0.25em) !important;
 }
