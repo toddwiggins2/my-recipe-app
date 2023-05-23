@@ -21,7 +21,7 @@ function App() {
           minHeight: "100vh",
         }}
       >
-        <Container>
+        <Container className="py-3">
           <SearchBar
             data={data}
             setData={setData}
