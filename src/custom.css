@@ -1,0 +1,11 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+html,
+body {
+  background: linear-gradient(to bottom right, #D4E4BC, #96ACB7, #40376E) !important;
+
+}
+
+button{
+    background-color: #36558F !important;
+}
