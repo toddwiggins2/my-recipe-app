@@ -1,19 +1,28 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-html,
-body {
-  background: linear-gradient(
-    to bottom right,
-    #d4e4bc,
-    #96acb7,
-    #40376e
-  ) !important;
+/* Change Font and background from default Bootstrap */
+html,body {
+  background: #577590 !important;
+  color: white !important;
+  font-family: 'Roboto', sans-serif !important;
 }
 
+/* Button change from Default Bootstrap */
 button {
-  background-color: #36558f !important;
+  background-color: #d78a76 !important;
+  border-color: #d78a76 !important;
 }
 
 button:active {
   transform: translate(0em, 0.25em) !important;
+}
+
+/* Input Changes from default Bootstrap */
+input {
+  color: white !important;
+}
+
+input, ::placeholder {
+  color: white !important;
 }

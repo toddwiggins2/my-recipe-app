@@ -5,111 +5,107 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 
 function RecipeList(props) {
-  const listMeal =
-    props.data.meals && props.data.meals.length > 0 ? (
-      <span key={props.data.meals[0].idMeal}>
-        {props.data.meals[0].strMeal}
-      </span>
-    ) : null;
-
-  const imageUrl =
-    props.data.meals && props.data.meals.length > 0
-      ? props.data.meals[0].strMealThumb !== ""
-        ? props.data.meals[0].strMealThumb
-        : null
-      : null;
-
-  const mealItem = (apiItem, passedName) =>
-    props.data.meals
-      ? props.data.meals.map((item) =>
-          item[apiItem] !== "" ? (
-            <span key={item.idMeal}>
-              {passedName} <br />
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: item[apiItem].replace(/\r/g, "<br>"),
-                }}
-              />
-            </span>
-          ) : null
-        )
-      : null;
-
-  const ingredientItems = () => {
-    if (props.data.meals) {
-      const ingredients = [<h5 key="title">Ingredients:</h5>];
-
-      for (let i = 1; i <= 20; i++) {
-        const ingredient = props.data.meals[0]["strIngredient" + i];
-        if (ingredient) {
-          ingredients.push(<span key={i}>{ingredient}</span>);
-        } else {
-          break;
-        }
-      }
-      return ingredients;
-    }
-    return null;
-  };
-
-  const ingredientItemsMeasure = () => {
-    if (props.data.meals) {
-      const ingredients = [<h5 key="title">Measurements:</h5>];
-
-      for (let i = 1; i <= 20; i++) {
-        const ingredient = props.data.meals[0]["strMeasure" + i];
-        if (ingredient) {
-          ingredients.push(<span key={i}>{ingredient}</span>);
-        } else {
-          break;
-        }
-      }
-      return ingredients;
-    }
-    return null;
-  };
-
+  // Function for if there is no API data, this will let the user know if a custom search did not find a recipe.
   const noItem = () =>
-    props.data.meals || props.data.id ? null : (
+    props.data.meals ? null : (
       <>
         <span>API did not return a recipe, please try a different name.</span>
       </>
     );
 
+  //Render the list of Ingredients, the API returns a individual item for each Ingredient, we need to loop
+  //through the list so that we can give each item it's own <p> to form the list.
+  const renderIngredients = (recipe) => {
+    const ingredients = [];
+
+    for (let i = 1; i <= 20; i++) {
+      const ingredient = recipe["strIngredient" + i];
+      if (ingredient) {
+        ingredients.push(ingredient);
+      }
+    }
+
+    return (
+      <div className="fs-6">
+        {ingredients.map((ingredient, index) => (
+          <p key={index}>{ingredient}</p>
+        ))}
+      </div>
+    );
+  };
+
+  //Same as the renderIngredients function but for the measurements
+  const renderMeasurements = (recipe) => {
+    const measurements = [];
+
+    for (let i = 1; i <= 20; i++) {
+      const measurement = recipe["strMeasure" + i];
+      if (measurement) {
+        measurements.push(measurement);
+      }
+    }
+
+    return (
+      <div className="fs-6">
+        {measurements.map((measurement, index) => (
+          <p key={index}>{measurement}</p>
+        ))}
+      </div>
+    );
+  };
+
+  //Render the description of the recipe. The data returned from the API has line breaks but they are not respected so we
+  //need to replace them with <br> tags in order to make the description of the recipe not one big wall of text.
+  const renderDescription = (recipe) => {
+    const edited = recipe.strInstructions.replace(/\n/g, "<br>");
+    return <span dangerouslySetInnerHTML={{ __html: edited }} />;
+  };
+
+  //render each recipe that is returned as its own card.
+  const renderRecipies = () =>
+    // if API returned data map through the data
+    props.data.meals && props.data.meals.length > 0
+      ? props.data.meals.map((recipe) => (
+          <Row key={recipe.idMeal} className="mt-2 shadow-lg">
+            <Card className=" bg-transparent border-white">
+              <div className="d-flex justify-content-center ">
+                <Card.Img
+                  style={{ width: "50%", height: "auto" }}
+                  className="rounded my-2 shadow-lg"
+                  variant="top"
+                  src={recipe.strMealThumb}
+                />
+              </div>
+
+              <Card.Body className="p-0">
+                <Card.Title className="fs-4 d-flex justify-content-center">
+                  {recipe.strMeal}
+                </Card.Title>
+
+                <div className="d-flex justify-content-evenly align-items-baseline">
+                  <Card.Text as="div" className="fs-5">
+                    Ingredients: {renderIngredients(recipe)}
+                  </Card.Text>
+                  <Card.Text as="div" className="fs-5">
+                    Measurements: {renderMeasurements(recipe)}
+                  </Card.Text>
+                </div>
+
+                <p>Instructions: {renderDescription(recipe)}</p>
+              </Card.Body>
+            </Card>
+          </Row>
+        ))
+      : noItem();
+
   return (
     <>
+      {/* created a container and render the recipes */}
       <Container
-        className="pd-2 shadow-lg"
+        className="pd-2"
         style={{ display: props.shouldHide ? "none" : "block" }}
       >
-        <Row className="justify-content-center ">
-          <Card className="align-items-center bg-transparent border-white">
-            <Card.Img
-              style={{ width: "50%", height: "100%" }}
-              className="rounded my-2 shadow-lg"
-              variant="top"
-              src={imageUrl}
-            />
-
-            <Card.Body>
-              <Card.Title className=" d-flex justify-content-evenly">
-                {listMeal}
-              </Card.Title>
-              <Card.Title className=" text-center">{noItem()}</Card.Title>
-              <div className="d-flex justify-content-evenly align-items-baseline">
-                <Card.Text as="div" className="d-grid ">
-                  {ingredientItems()}
-                </Card.Text>
-                <Card.Text as="div" className="d-grid ">
-                  {ingredientItemsMeasure()}
-                </Card.Text>
-              </div>
-              <Card.Text className="mt-4">
-                {mealItem("strInstructions", "Instructions:")}
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Row>
+        {renderRecipies()}
       </Container>
     </>
   );

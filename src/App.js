@@ -13,6 +13,8 @@ function App() {
 
   return (
     <>
+
+      {/* Setup default styling for whole application */}
       <div
         style={{
           display: "flex",
@@ -22,12 +24,15 @@ function App() {
         }}
       >
         <Container className="py-3">
+       
+          {/* Searchbar container, pass props for API back and forth */}
           <SearchBar
             data={data}
             setData={setData}
             onDataUpdate={setData}
             hideRecipe={setShouldHide}
           />
+          {/* List the Recipie data that was returned from the API search */}
           <RecipeList
             data={data}
             setData={setData}
