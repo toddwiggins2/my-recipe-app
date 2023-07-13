@@ -28,7 +28,9 @@ function RecipeList(props) {
     return (
       <div className="fs-6">
         {ingredients.map((ingredient, index) => (
-          <p key={index}>{ingredient}</p>
+          <p className="m-1" key={index}>
+            {ingredient}
+          </p>
         ))}
       </div>
     );
@@ -48,7 +50,9 @@ function RecipeList(props) {
     return (
       <div className="fs-6">
         {measurements.map((measurement, index) => (
-          <p key={index}>{measurement}</p>
+          <p className="m-1" key={index}>
+            {measurement}
+          </p>
         ))}
       </div>
     );
@@ -67,32 +71,37 @@ function RecipeList(props) {
     props.data.meals && props.data.meals.length > 0
       ? props.data.meals.map((recipe) => (
           <Row key={recipe.idMeal} className="mt-2 shadow-lg">
-            <Card className=" bg-transparent border-white">
-              <div className="d-flex justify-content-center ">
-                <Card.Img
-                  style={{ width: "50%", height: "auto" }}
-                  className="rounded my-2 shadow-lg"
-                  variant="top"
-                  src={recipe.strMealThumb}
-                />
+            {/* Whole Card */}
+            <Card className="bg-transparent border-white">
+              <div className="">
+                <Card.Body className="p-0">
+                  <Card.Title className="fs-4 p-2 m-0 d-flex justify-content-center">
+                    {recipe.strMeal}
+                  </Card.Title>
+                  {/* Div for Image */}
+                  <div className="d-flex flex-column flex-sm-row align-items-center justify-content-around">
+                    <div className="d-flex w-25">
+                      <Card.Img
+                        // style={{ width: "auto", height: "auto" }}
+                        className="rounded my-2 shadow-lg"
+                        variant="top"
+                        src={recipe.strMealThumb}
+                      />
+                    </div>
+                    <div className="d-flex flex-column">
+                      <div className="d-flex justify-content-evenly align-items-baseline">
+                        <Card.Text as="div" className="fs-5 px-3">
+                          Ingredients: {renderIngredients(recipe)}
+                        </Card.Text>
+                        <Card.Text as="div" className="fs-5 px-3">
+                          Measurements: {renderMeasurements(recipe)}
+                        </Card.Text>
+                      </div>
+                    </div>
+                  </div>
+                  <p>Instructions: {renderDescription(recipe)}</p>
+                </Card.Body>
               </div>
-
-              <Card.Body className="p-0">
-                <Card.Title className="fs-4 d-flex justify-content-center">
-                  {recipe.strMeal}
-                </Card.Title>
-
-                <div className="d-flex justify-content-evenly align-items-baseline">
-                  <Card.Text as="div" className="fs-5">
-                    Ingredients: {renderIngredients(recipe)}
-                  </Card.Text>
-                  <Card.Text as="div" className="fs-5">
-                    Measurements: {renderMeasurements(recipe)}
-                  </Card.Text>
-                </div>
-
-                <p>Instructions: {renderDescription(recipe)}</p>
-              </Card.Body>
             </Card>
           </Row>
         ))
